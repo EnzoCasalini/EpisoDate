@@ -1,0 +1,7 @@
+{
+  "name": "EpisoDate",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
