@@ -14,7 +14,7 @@ const SerieComponent: React.FC = () => {
         page: 0,
         pages: 0,
         total: '0',
-        tv_shows: []
+        tv_shows: [],
     });
 
     async function GetAllSeries (url:string) {
@@ -45,7 +45,6 @@ const SerieComponent: React.FC = () => {
             <IonList>
                 {
                     allSeries?.tv_shows.map((value) => {
-                        console.log(value.name + " " + value.image_thumbnail_path)
                         return(
                                 <IonCard key={value.id}>
                                     <IonImg src={value.image_thumbnail_path}/>
