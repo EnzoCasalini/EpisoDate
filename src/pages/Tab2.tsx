@@ -111,7 +111,7 @@ const Tab2: React.FC = () => {
                     {allSeries.tv_shows.map( (serie) => {
                         if (serie.name != "No matches found") {
                             return (
-                                <IonItem key={serie.id}>
+                                <IonItem routerLink={"details/" + serie.permalink} key={serie.id}>
                                     <IonLabel>
                                         {serie.name}
                                     </IonLabel>

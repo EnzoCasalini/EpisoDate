@@ -41,6 +41,7 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import Details from "./pages/Details";
 
 setupIonicReact();
 
@@ -57,6 +58,8 @@ const App: React.FC = () => (
           </Route>
           <Route path="/tab3">
             <Tab3 />
+          </Route>
+          <Route path={"/details/:permalink"} component={Details}>
           </Route>
           <Route exact path="/">
             <Redirect to="/tab1" />
