@@ -19,9 +19,9 @@ import {
   square,
   triangle
 } from 'ionicons/icons';
-import Tab1 from './pages/Tab1';
-import Tab2 from './pages/Tab2';
-import Tab3 from './pages/Tab3';
+import Home from './pages/Home';
+import Search from './pages/Search';
+import Favorites from './pages/Favorites';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -50,33 +50,33 @@ const App: React.FC = () => (
     <IonReactRouter>
       <IonTabs>
         <IonRouterOutlet>
-          <Route exact path="/tab1">
-            <Tab1 />
+          <Route exact path="/Home">
+            <Home />
           </Route>
-          <Route exact path="/tab2">
-            <Tab2 />
+          <Route exact path="/Search">
+            <Search />
           </Route>
-          <Route path="/tab3">
-            <Tab3 />
+          <Route path="/Favorites">
+            <Favorites />
           </Route>
           <Route path={"/details/:permalink"} component={Details}>
           </Route>
           <Route exact path="/">
-            <Redirect to="/tab1" />
+            <Redirect to="/Home" />
           </Route>
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
-          <IonTabButton tab="tab1" href="/tab1">
+          <IonTabButton tab="Home" href="/Home">
             <IonIcon icon={homeOutline}/>
-            <IonLabel>Tab 1</IonLabel>
+            <IonLabel>Home</IonLabel>
           </IonTabButton>
-          <IonTabButton tab="tab2" href="/tab2">
+          <IonTabButton tab="Search" href="/Search">
             <IonIcon icon={searchOutline} />
-            <IonLabel>Tab 2</IonLabel>
+            <IonLabel>Search</IonLabel>
           </IonTabButton>
-          <IonTabButton tab="tab3" href="/tab3">
+          <IonTabButton tab="Favorites" href="/Favorites">
             <IonIcon icon={heartOutline} />
-            <IonLabel>Tab 3</IonLabel>
+            <IonLabel>Favorites</IonLabel>
           </IonTabButton>
         </IonTabBar>
       </IonTabs>

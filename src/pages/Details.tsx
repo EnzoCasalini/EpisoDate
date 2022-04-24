@@ -3,8 +3,8 @@ import {
     IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol,
     IonContent,
     IonGrid,
-    IonHeader, IonIcon, IonImg, IonItem, IonLabel,
-    IonPage, IonRow, IonText, IonThumbnail,
+    IonHeader, IonImg,
+    IonPage, IonRow, IonText,
     IonTitle,
     IonToolbar,
     useIonViewWillEnter, withIonLifeCycle
@@ -12,50 +12,14 @@ import {
 import {RouteComponentProps} from "react-router";
 import React, {useState} from "react";
 import {SerieDetails} from "../api/results/SerieDetails";
-import {Series} from "../api/responses/Series";
-import {homeOutline, star, starHalf} from "ionicons/icons";
+import './Details.css';
+import RatingComponent from '../components/RatingComponent';
 
 
 interface DetailsPageProps extends RouteComponentProps<{ permalink: string; }> {
 }
 
 const Details: React.FC<DetailsPageProps> = ({match}) => {
-
-    const imgStyle = {
-        margin: "20px",
-    };
-
-    const titleStyle = {
-        textDecoration: "underline",
-        fontWeight: "bold",
-        fontSize: "35px",
-    };
-
-    const descriptionStyle = {
-        fontSize: "20px",
-        lineHeight: "25px",
-        paddingTop: "8px",
-    }
-
-    const subTitleStyle = {
-        fontSize: "24px",
-        fontWeight: "bold",
-        color: "white"
-    }
-
-    const gridStyle = {
-        marginTop: "30px"
-    }
-
-    const rowStyle = {
-        marginBottom: "20px",
-    }
-
-    const rateStyle = {
-        display: "flex",
-        alignItems: "center",
-    }
-
 
     const [serie, setSerie] = useState<SerieDetails>({
         tvShow: {
@@ -73,7 +37,7 @@ const Details: React.FC<DetailsPageProps> = ({match}) => {
     });
 
     // Méthode qui permet de récupérer la série correspondante au permalink dans l'url.
-    async function GetSerie(permalink:string) {
+    async function getSerie(permalink:string) {
         try {
             const response = await fetch(`https://www.episodate.com/api/show-details?q=${permalink}`);
             const data = await response.json() as SerieDetails; // On récupère les infos de l'API.
@@ -85,38 +49,13 @@ const Details: React.FC<DetailsPageProps> = ({match}) => {
         }
     }
 
-    function calculateRating(rating:number) {
-        let temp = [];
-        let rate = Math.round(rating) * 0.5;
 
-        if (rate % 1 == 0)
-        {
-            for (let i = 0; i < rate; i++)
-            {
-                temp.push(<IonIcon icon={star}/>);
-            }
-            return (
-                temp
-            )
-        }
-        else {
-            for (let i = 0; i < rate - 1; i++)
-            {
-                temp.push(<IonIcon icon={star}/>);
-            }
-            temp.push(<IonIcon icon={starHalf}/>)
-            return (
-                temp
-            )
-        }
-    }
-
-    // Dès qu'on rentre sur la page détails, on appelle la méthode GetSerie.
+    // Dès qu'on rentre sur la page détails, on appelle la méthode getSerie.
     useIonViewWillEnter(async () => {
-        await GetSerie(match.params.permalink);
+        await getSerie(match.params.permalink);
     });
 
-    console.log(serie);
+    //console.log(serie);
 
     return (
         <IonPage>
@@ -134,23 +73,23 @@ const Details: React.FC<DetailsPageProps> = ({match}) => {
                 <IonCard>
                     <IonCardHeader>
                         <IonCardTitle class={"ion-text-center"}>
-                            <h1 style={titleStyle}>{serie.tvShow.name}</h1>
+                            <h1 className={"titleStyle"}>{serie.tvShow.name}</h1>
                         </IonCardTitle>
                     </IonCardHeader>
                     <IonCardContent>
-                        <IonImg src={serie.tvShow.image_thumbnail_path} style={imgStyle}></IonImg>
-                        <IonCardSubtitle style={subTitleStyle}>
+                        <IonImg src={serie.tvShow.image_thumbnail_path} className={"imgStyle"}></IonImg>
+                        <IonCardSubtitle className={"subTitleStyle"}>
                             Description :
                         </IonCardSubtitle>
-                        <IonText style={descriptionStyle}>
+                        <IonText className={"descriptionStyle"}>
                             {serie.tvShow.description}
                         </IonText>
-                        <IonGrid style={gridStyle}>
-                            <IonRow style={rowStyle}>
-                                <IonCol style={subTitleStyle}>
+                        <IonGrid className={"gridStyle"}>
+                            <IonRow className={"rowStyle"}>
+                                <IonCol className={"subTitleStyle"}>
                                     Genres :
                                 </IonCol>
-                                <IonCol size="7" style={descriptionStyle} className={"ion-align-self-center"}>
+                                <IonCol size="7" className={"descriptionStyle ion-align-self-center"}>
                                     {serie.tvShow.genres.map((value => {
                                         return(
                                             value + " "
@@ -158,27 +97,26 @@ const Details: React.FC<DetailsPageProps> = ({match}) => {
                                     }))}
                                 </IonCol>
                             </IonRow>
-                            <IonRow style={rowStyle}>
-                                <IonCol style={subTitleStyle}>
+                            <IonRow className={"rowStyle"}>
+                                <IonCol className={"subTitleStyle"}>
                                     Watch on :
                                 </IonCol>
-                                <IonCol size="7" style={descriptionStyle} className={"ion-align-self-center"}>
+                                <IonCol size="7" className={"descriptionStyle ion-align-self-center"}>
                                     {serie.tvShow.network}
                                 </IonCol>
                             </IonRow>
-                            <IonRow style={rowStyle}>
-                                <IonCol style={subTitleStyle}>
+                            <IonRow className={"rowStyle"}>
+                                <IonCol className={"subTitleStyle"}>
                                     Rating :
                                 </IonCol>
-                                <IonCol size="7" style={{...descriptionStyle,...rateStyle}} className={"ion-align-self-center"}>
-                                    {calculateRating(serie.tvShow.rating)}
+                                <IonCol size="7" className={"ion-align-self-center descriptionStyle rateStyle"}>
+                                    <RatingComponent>{serie.tvShow.rating}</RatingComponent>
                                     &ensp;({serie.tvShow.rating_count})
                                 </IonCol>
                             </IonRow>
                         </IonGrid>
                     </IonCardContent>
                 </IonCard>
-
             </IonContent>
         </IonPage>
     );

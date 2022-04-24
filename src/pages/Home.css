@@ -1,0 +1,14 @@
+.title {
+    text-decoration: underline;
+    font-size: 25px;
+    margin-bottom: 30px;
+}
+
+.cardStyle {
+    margin-bottom: 50px;
+}
+
+.labelStyle {
+    color: #fff;
+    font-size: 20px;
+}

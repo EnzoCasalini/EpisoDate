@@ -1,18 +1,19 @@
 import {
+    IonCard, IonCardContent,
     IonContent,
-    IonHeader, IonInfiniteScroll, IonInfiniteScrollContent, IonItem, IonLabel,
+    IonHeader, IonImg, IonInfiniteScroll, IonInfiniteScrollContent, IonItem, IonLabel,
     IonList,
     IonPage,
     IonSearchbar,
-    IonTitle,
     IonToolbar,
-    useIonViewWillEnter
 } from '@ionic/react';
-import './Tab2.css';
+import './Search.css';
 import {useState} from "react";
 import {EpisoDateAPI} from "../api/results/EpisoDateAPI";
+import {getSeries} from "../services/EpisodeService";
+import DisplayIconComponent from "../components/DisplayIconComponent";
 
-const Tab2: React.FC = () => {
+const Search: React.FC = () => {
 
     const [searchText, setSearchText] = useState('');
     const [isInfiniteDisabled, setIsInfiniteDisabled] = useState<boolean>(false);
@@ -23,19 +24,13 @@ const Tab2: React.FC = () => {
         tv_shows: [],
     });
 
-    async function GetSeries (url:string) {
+
+    async function getAllSeries (url:string) {
         try {
             setIsInfiniteDisabled(true);
 
-            const response = await fetch(url);
-            const data = await response.json() as EpisoDateAPI;
-
-            setAllSeries({
-                page: data.page,
-                pages: data.pages,
-                total: data.total,
-                tv_shows: [...allSeries.tv_shows, ...data.tv_shows]
-            });
+            const _allSeries = await getSeries(url, allSeries);
+            setAllSeries(_allSeries);
 
             setIsInfiniteDisabled(false);
         }
@@ -44,8 +39,9 @@ const Tab2: React.FC = () => {
         }
     }
 
+
     // Méthode pour filtrer les épisodes avec la barre de recherche.
-    async function SearchSeries(name:string) {
+    async function searchSeries(name:string) {
         try {
             setIsInfiniteDisabled(true);
 
@@ -95,14 +91,12 @@ const Tab2: React.FC = () => {
     }
 
 
-    //console.log(episodes.info)
-
     return (
         <IonPage>
             <IonHeader>
                 <IonToolbar>
                     {/* On appelle la fonction SearchEpisodes dès qu'il y a une modification de la SearchBar.*/ }
-                    <IonSearchbar value={searchText} onIonChange={async (e) => {await SearchSeries(e.detail.value!);}}
+                    <IonSearchbar value={searchText} onIonChange={async (e) => {await searchSeries(e.detail.value!);}}
                     animated/>
                 </IonToolbar>
             </IonHeader>
@@ -110,12 +104,16 @@ const Tab2: React.FC = () => {
                 <IonList>
                     {allSeries.tv_shows.map( (serie) => {
                         if (serie.name != "No matches found") {
-                            return (
-                                <IonItem routerLink={"details/" + serie.permalink} key={serie.id}>
-                                    <IonLabel>
-                                        {serie.name}
-                                    </IonLabel>
-                                </IonItem>
+                            return(
+                                <IonCard routerLink={"details/" + serie.permalink} key={serie.id} className={"cardStyle"}>
+                                    <IonImg src={serie.image_thumbnail_path}/>
+                                    <IonCardContent>
+                                        <IonItem>
+                                            <IonLabel slot={"start"} className={"labelStyle"}>{serie.name}</IonLabel>
+                                            <DisplayIconComponent value={serie}/>
+                                        </IonItem>
+                                    </IonCardContent>
+                                </IonCard>
                             )
                         }
                         else
@@ -134,7 +132,7 @@ const Tab2: React.FC = () => {
                     {
                         if (allSeries.page < allSeries.pages)
                         {
-                            await GetSeries(`https://www.episodate.com/api/search?q=${searchText}&page=${allSeries?.page + 1}` as string)
+                            await getAllSeries(`https://www.episodate.com/api/search?q=${searchText}&page=${allSeries?.page + 1}` as string)
                         }
                         else {
                             setIsInfiniteDisabled(true);
@@ -153,4 +151,4 @@ const Tab2: React.FC = () => {
     );
 };
 
-export default Tab2;
+export default Search;

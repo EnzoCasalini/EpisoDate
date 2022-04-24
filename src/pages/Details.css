@@ -1,0 +1,38 @@
+.imgStyle  {
+    margin: 20px;
+}
+
+.titleStyle {
+    text-decoration: underline;
+    font-weight: bold;
+    font-size: 35px;
+}
+
+ .descriptionStyle  {
+    font-size: 20px;
+    line-height: 25px;
+    padding-top: 8px;
+}
+
+ .subTitleStyle  {
+    font-size: 24px;
+    font-weight: bold;
+    color: white
+}
+
+ .gridStyle  {
+    margin-top: 30px
+}
+
+ .rowStyle  {
+    margin-bottom: 20px;
+}
+
+ .rateStyle  {
+    display: flex;
+    align-items: center;
+}
+
+ .rating {
+     padding-top: 3px;
+ }
