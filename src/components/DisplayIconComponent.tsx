@@ -28,10 +28,10 @@ const DisplayIconComponent: React.FC<IconProps> = (props: IconProps) => {
                 for (let i = 0; i < favorites.length; i++) {
                     if (favorites[i].id == value.id) {
                         return (
-                            <IonIcon onClick={(e) => {
+                            <IonIcon onClick={async (e) => {
                                 e.preventDefault();
                                 e.stopPropagation();
-                                setFav(value);
+                                await setFav(value);
                                 refreshPage();
                             }} slot={"end"} icon={heart} style={{color: "red"}}/>
                         )
@@ -40,10 +40,10 @@ const DisplayIconComponent: React.FC<IconProps> = (props: IconProps) => {
             }
         }
         return (
-            <IonIcon onClick={(e) => {
+            <IonIcon onClick={async (e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                setFav(value);
+                await setFav(value);
                 refreshPage();
             }} slot={"end"} icon={heartOutline} style={{color: "red"}}/>
         )
