@@ -8,8 +8,11 @@ C'était un travail facultatif que j'ai fait en autonomie.
 Cette application est un catalogue de séries (récupérées sur l'API EpisoDate) divisé en 3 onglets :
 
 🏠 Home - Liste les séries les plus populaires.
+
 🔎 Search - Permet de réchercher une série en particulier.
+
 ❤️ Favorites - Liste les séries que l'utilisateur a mis dans ses favoris.
+
 Il y a également une page Détails qui regroupe les informations sur la série (Sa description, ses genres, sa note, etc...).
 
 ## Screenshots
