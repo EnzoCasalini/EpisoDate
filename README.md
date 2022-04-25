@@ -1,6 +1,6 @@
 # EpisoDate
 
-Une Application réalisée avec Ionic/React et TypeScript pour mon cours de Web Mobile.
+Une application réalisée avec Ionic/React et TypeScript pour mon cours de Web Mobile.
 C'était un travail facultatif que j'ai fait en autonomie.
 
 ## But de l'application
@@ -13,7 +13,7 @@ Cette application est un catalogue de séries (récupérées sur l'API EpisoDate
 
 ❤️ Favorites - Liste les séries que l'utilisateur a mis dans ses favoris.
 
-Il y a également une page Détails qui regroupe les informations sur la série (Sa description, ses genres, sa note, etc...).
+Il y a également une page Détails qui regroupe les informations sur la série (sa description, ses genres, sa note, etc...).
 
 ## Screenshots
 
