@@ -9,7 +9,7 @@ Cette application est un catalogue de séries (récupérées sur l'API EpisoDate
 
 🏠 Home - Liste les séries les plus populaires.
 
-🔎 Search - Permet de réchercher une série en particulier.
+🔎 Search - Permet de rechercher une série en particulier.
 
 ❤️ Favorites - Liste les séries que l'utilisateur a mis dans ses favoris.
 
